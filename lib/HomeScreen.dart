@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ict300/HomePage.dart';
 import 'package:ict300/Profil.dart';
+import 'package:ict300/addPresence.dart';
+import 'package:ict300/api/AuthService.dart';
+import 'package:ict300/api/localisation.dart';
 import 'package:ict300/colors.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,7 +13,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget _affichePage = Container();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<Localisation>().initLocation();
+    context.read<AuthService>().getjour();
+  }
+
+  Widget _affichePage = HomePage();
   int _current = 0;
   bool one = true, two = false;
   void _change(int index) {
@@ -23,13 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         one = true;
         two = false;
-        return Container(); // CheckOut();
+        return HomePage(); // CheckOut();
         break;
       case 1:
         one = false;
         two = false;
 
-        return Container();
+        return AddPresence();
         break;
 
       case 2:

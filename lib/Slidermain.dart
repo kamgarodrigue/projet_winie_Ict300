@@ -131,7 +131,7 @@ class _SlidermainState extends State<Slidermain> {
                                   color: whiteColor))),
                       onTap: () {
                         if (_currentIndex == 2) {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Login(
@@ -146,7 +146,7 @@ class _SlidermainState extends State<Slidermain> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Login(

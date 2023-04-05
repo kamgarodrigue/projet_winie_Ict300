@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:ict300/HomeScreen.dart';
 import 'package:ict300/Slidermain.dart';
+import 'package:ict300/api/AuthService.dart';
+import 'package:ict300/api/localisation.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AuthService()),
+      ChangeNotifierProvider(create: (context) => Localisation()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    final authService = context.watch<AuthService>();
+    print(authService.authenticate);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -25,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Slidermain(),
+      home: authService.authenticate ? HomeScreen() : Slidermain(),
     );
   }
 }
